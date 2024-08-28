@@ -1,0 +1,45 @@
+---
+import Experience from "../components/experiences/Experience.astro";
+import Exp from "../components/experiences/Experience.astro";
+
+const EXPERIENCIAS = [
+  {
+    empresa: "Macamedia",
+    fecha: {
+      inicio: "2021",
+      fin: "2024",
+    },
+    color: "#4ce07d",
+    puesto: "Semi-Senior Front-End Engineer",
+    descripcion:
+      "Responsable en diferentes equipos y proyectos del diseño y desarrollo, de componenetes y utilidades para aplicaciones web y moviles. Implementación de flujo de trabajo Git Flow, para agilizar el desarrollo y entregas programadas.",
+  },
+  {
+    empresa: "SantiagoWeb",
+    fecha: {
+      inicio: "2018",
+      fin: "2021",
+    },
+    color: "#f06336",
+    puesto: "Fullstack Developer",
+    descripcion:
+      "Líder técnico y responsable del diseño y desarrollo de aplicaciones web en diferentes proyectos.",
+  },
+];
+---
+
+<section>
+  <ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
+    {
+      EXPERIENCIAS.map((item) => (
+        <Experience
+          empresa={item.empresa}
+          color={item.color}
+          fecha={item.fecha}
+          puesto={item.puesto}
+          descripcion={item.descripcion}
+        />
+      ))
+    }
+  </ol>
+</section>
