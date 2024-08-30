@@ -1,17 +1,25 @@
 ---
 import ThemeToggle from "./ThemeToggle.astro";
 import LinkedInIcon from "../components/icons/LinkedIn.astro";
+import { Image } from "astro:assets";
+import ImagenPerfil from "../images/foto-perfil.jpg";
 ---
 
 <header
   class="flex lg:justify-between justify-center lg:px-28 py-5 px-4 w-full mx-auto fixed top-0 z-10"
 >
   <!-- Image stays the same -->
-  <img
+  <Image
+    src={ImagenPerfil}
+    alt="Agustin Villar photo."
+    class="rounded-full size-20 lg:block hidden"
+  />
+
+  <!-- <img
     class="rounded-full size-20 lg:block hidden hover:scale-150 transition ease-in-out duration-100"
     src="/foto-perfil.jpg"
     alt="Agustin Villar Photo"
-  />
+  /> -->
 
   <!-- Nav Element -->
   <nav
@@ -27,12 +35,13 @@ import LinkedInIcon from "../components/icons/LinkedIn.astro";
     >
     <a
       class="hover:text-sky-400 duration-200 ease-in-out dark:hover:text-sky-400 dark:hover:opacity-100"
-      href="#about">Sobre mí</a
+      href="#proyectos">Proyectos</a
     >
     <a
       class="hover:text-sky-400 duration-200 ease-in-out dark:hover:text-sky-400 dark:hover:opacity-100"
-      href="#contacto">Contacto</a
+      href="#about">Sobre mí</a
     >
+
     <ThemeToggle
       class="text-gray-500 dark:text-gray-400 lg:hover:bg-gray-100 lg:dark:hover:bg-gray-800 transition ease-in-out duration-100 rounded-full text-sm p-1.5"
     />
