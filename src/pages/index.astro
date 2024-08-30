@@ -13,7 +13,7 @@ import Experience from "../components/MyExperience.astro";
   title="Agustin Villar | Porfolio - Desarrolador y programador front end"
 >
   <main class="mx-4">
-    <SectionContainer class="">
+    <SectionContainer>
       <div class="flex items-center pb-4 lg:pb-6">
         <img
           class="rounded-full size-14 lg:hidden block"
@@ -21,7 +21,7 @@ import Experience from "../components/MyExperience.astro";
           alt="Agustin Villar Photo"
         />
         <h1
-          class="text-3xl lg:text-5xl font-bold dark:text-white dark:opacity-100 px-4"
+          class="text-3xl lg:text-5xl font-bold dark:text-white dark:opacity-100 px-4 lg:px-0"
         >
           ¡Hola!, soy Agustín <span class="relative group"> </span>
         </h1>
@@ -45,19 +45,20 @@ import Experience from "../components/MyExperience.astro";
           <GithubIcon class="size-7 lg:size-4" />
         </Social>
       </div>
-      <SectionContainer id="experiencia">
-        <div class="flex justify-between items-center">
-          <h2
-            class="text-4xl font-bold dark:text-white opacity-80 dark:opacity-100"
-          >
-            Mi experiencia
-          </h2>
-          <Social url="#" title="Mi CV">
-            <ResumeIcon class="size-7 lg:size-4" />
-          </Social>
-        </div>
-        <Experience />
-      </SectionContainer>
+    </SectionContainer>
+
+    <SectionContainer id="experiencia">
+      <div class="flex justify-between items-center">
+        <h2
+          class="text-4xl font-bold dark:text-white opacity-80 dark:opacity-100"
+        >
+          Mi experiencia
+        </h2>
+        <Social url="#" title="Mi CV">
+          <ResumeIcon class="size-7 lg:size-4" />
+        </Social>
+      </div>
+      <Experience />
     </SectionContainer>
   </main>
 </Layout>

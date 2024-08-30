@@ -1,7 +1,9 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ThemeTogglFAB from "../components/ThemeToggleFAB.astro";
 import "@fontsource-variable/onest";
+import ThemeToggle from "../components/ThemeToggle.astro";
 interface Props {
   title: string;
 }
@@ -22,6 +24,7 @@ const { title } = Astro.props;
   <body class="dark:bg-[#000] bg-white">
     <Header />
     <slot />
+
     <Footer />
   </body>
 </html>
