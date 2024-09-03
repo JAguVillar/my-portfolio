@@ -1,0 +1,29 @@
+---
+const token =
+    "BQA5GJC4qZjByywLyC02mcmSTSMUDz0pYoCD9o3bjb3yI2rM5fIo2Clxkzc0VxwGHR0s9xJUYFpOk72Y-7TTKYAPh_GaO37vZNhRXfWl6pqcai0L6Fi6_v7bTUAFqhpm6iNuzjDAGBPfHEUrL1SNZ_mHfXLeaEamYEIY2x1_Tyl59U7yWPXBHWxHFG0oRzavVn9KEAhtS5Lg6QNaMUVala9lHY_nAD6M7uQWXSwdOIgTnBdVY0KgaqsIJxM_MCPrZK-_p7XH1VDb";
+
+// Function to fetch data
+async function fetchWebApi(endpoint, method, body = null) {
+    const res = await fetch(`https://api.spotify.com/${endpoint}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        },
+        method,
+        body: body ? JSON.stringify(body) : undefined,
+    });
+    return await res.json();
+}
+
+// Function to get top tracks
+async function getTopTracks() {
+    return (await fetchWebApi("v1/me/player/currently-playing", "GET")).items;
+}
+
+const topTracks = await getTopTracks();
+console.log("Fetched Top Tracks:", topTracks); // Log topTracks to the server console
+---
+
+<div class="text-white">
+    {topTracks}
+</div>
