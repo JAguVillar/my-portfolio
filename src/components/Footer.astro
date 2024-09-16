@@ -4,14 +4,14 @@ import GithubIcon from "../components/icons/Github.astro";
 import Social from "../components/Social.astro";
 ---
 
-<footer class="py-10 px-28 flex justify-between items-center bg-gray-950">
+<footer class="py-10 px-28 flex justify-between items-center">
   <div
-    class="text-sm lg:text-sm font-bold text-white dark:text-white dark:opacity-100 px-4 lg:px-0"
+    class="text-sm lg:text-sm font-normal dark:text-white dark:opacity-100 px-4 lg:px-0"
   >
     © 2024 Agoto
   </div>
   <div class="flex flex-row gap-x-4">
-    <Social
+    <!-- <Social
       url="https://www.linkedin.com/in/agustin-villar-4a9bab259/"
       title="LinkedIn"
     >
@@ -19,6 +19,11 @@ import Social from "../components/Social.astro";
     </Social>
     <Social url="https://github.com/JAguVillar" title="Github">
       <GithubIcon class="size-7 lg:size-4" />
-    </Social>
+    </Social> -->
+    <a
+      class="hover:underline font-medium"
+      href="mailto:jaguvillar@gmail.com"
+      type="mail">Pongámonos en contacto</a
+    >
   </div>
 </footer>

@@ -10,7 +10,7 @@ const EXPERIENCIAS = [
       fin: "2024",
     },
     color: "#4ce07d",
-    puesto: "Semi-Senior Front-End Engineer",
+    puesto: "Front-End Engineer",
     descripcion:
       "Responsable en diferentes equipos y proyectos del diseño y desarrollo, de componenetes y utilidades para aplicaciones web y moviles. Implementación de flujo de trabajo Git Flow, para agilizar el desarrollo y entregas programadas.",
   },
@@ -28,18 +28,16 @@ const EXPERIENCIAS = [
 ];
 ---
 
-<section>
-  <ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
-    {
-      EXPERIENCIAS.map((item) => (
-        <Experience
-          empresa={item.empresa}
-          color={item.color}
-          fecha={item.fecha}
-          puesto={item.puesto}
-          descripcion={item.descripcion}
-        />
-      ))
-    }
-  </ol>
-</section>
+<ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
+  {
+    EXPERIENCIAS.map((item) => (
+      <Experience
+        empresa={item.empresa}
+        color={item.color}
+        fecha={item.fecha}
+        puesto={item.puesto}
+        descripcion={item.descripcion}
+      />
+    ))
+  }
+</ol>
