@@ -1,49 +1,125 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import ThemeTogglFAB from "../components/ThemeToggleFAB.astro";
 import "@fontsource-variable/onest";
-import ThemeToggle from "../components/ThemeToggle.astro";
 import { ViewTransitions } from "astro:transitions";
+import { defaultLang, useTranslations } from "../i18n/ui";
+
 interface Props {
-  title: string;
+  title?: string;
+  description?: string;
 }
 
-const { title } = Astro.props;
+const lang = defaultLang;
+const t = useTranslations(lang);
+
+const { title = t("meta.title"), description = t("meta.description") } =
+  Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
-    <ViewTransitions />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+
     <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="es_AR" />
+    <!-- TODO: agregar /og.png (1200×630) en public/ y descomentar -->
+    <!-- <meta property="og:image" content={new URL("/og.png", Astro.site).href} /> -->
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Evita el flash de tema claro antes de hidratar (FOUC) -->
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("color-theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = stored ?? (prefersDark ? "dark" : "light");
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        localStorage.setItem("color-theme", theme);
+      })();
+    </script>
+
+    <ViewTransitions />
   </head>
-  <body class="dark:bg-[#000] bg-white animate-fadeIn">
+  <body class="min-h-dvh bg-bg text-body animate-fadeIn">
     <Header />
     <slot />
     <Footer />
   </body>
 </html>
+
 <style is:global>
   :root {
-    color-scheme: light dark;
+    color-scheme: light;
+    /* Grises fríos (tinte azul) para acompañar el acento */
+    --bg: 0 0% 100%;
+    --surface: 220 20% 98%;
+    --text-strong: 222 22% 12%;
+    --text: 220 12% 28%;
+    --text-muted: 220 9% 46%;
+    --accent: 201 90% 42%;
+    --accent-strong: 201 92% 34%;
+    --border: 220 16% 90%;
   }
+
+  html.dark {
+    color-scheme: dark;
+    --bg: 222 18% 6%; /* off-black, no #000 */
+    --surface: 222 16% 10%;
+    --text-strong: 210 20% 97%;
+    --text: 216 14% 78%;
+    --text-muted: 218 10% 58%;
+    --accent: 200 92% 62%;
+    --accent-strong: 200 95% 72%;
+    --border: 220 12% 20%;
+  }
+
   html {
     font-family: "Onest Variable", system-ui, sans-serif;
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
+
   body {
-    color: rgba(17, 17, 17, 0.9);
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     overscroll-behavior: none;
+    overflow-x: clip;
+    text-wrap: pretty;
   }
+
+  /* Transición suave de tema: solo activa mientras se cambia (clase añadida
+     por el toggle y removida a los 400ms). No afecta la carga ni los hovers. */
+  @media (prefers-reduced-motion: no-preference) {
+    html.theme-transition,
+    html.theme-transition *,
+    html.theme-transition *::before,
+    html.theme-transition *::after {
+      transition:
+        background-color 0.4s ease,
+        border-color 0.4s ease,
+        color 0.4s ease,
+        fill 0.4s ease,
+        stroke 0.4s ease !important;
+      transition-delay: 0 !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;

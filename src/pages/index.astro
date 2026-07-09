@@ -1,80 +1,64 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Badge from "../components/Badge.astro";
 import LinkedInIcon from "../components/icons/LinkedIn.astro";
 import GithubIcon from "../components/icons/Github.astro";
 import ResumeIcon from "../components/icons/Resume.astro";
 import Social from "../components/Social.astro";
 import SectionContainer from "../components/SectionContainer.astro";
 import Experience from "../components/MyExperience.astro";
+import Stickers from "../components/experiences/Stickers.astro";
 import Projects from "../components/Projects.astro";
-import { Image } from "astro:assets";
-import ImagenPerfil from "../images/foto-perfil.jpg";
+import { defaultLang, useTranslations } from "../i18n/ui";
+
+const t = useTranslations(defaultLang);
 ---
 
-<Layout
-  title="Agustin Villar | Porfolio - Desarrolador y programador front end"
->
+<Layout>
   <main class="mx-4">
-    <SectionContainer class="h-screen flex justify-center flex-col" id="home">
-      <div class="flex items-center pb-4 lg:pb-6">
-        <!-- <Image
-          src={ImagenPerfil}
-          alt="Agustin Villar photo."
-          class="rounded-full size-14 lg:hidden block"
-        /> -->
-        <h1
-          class="text-3xl lg:text-5xl font-bold dark:text-white dark:opacity-100 px-4 lg:px-0"
-        >
-          ¡Hola!, soy Agustín <span class="relative group"> </span>
-        </h1>
-      </div>
-      <h2
-        class="text-xl font-semibold lg:text-2xl lg:font-semibold pb-4 text-wrap dark:text-slate-300 opacity-80 dark:opacity-100"
+    <SectionContainer
+      class="flex min-h-dvh flex-col justify-center gap-4"
+      id="home"
+    >
+      <h1
+        class="text-4xl font-bold tracking-tight text-strong lg:text-6xl"
       >
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi nobis et
-        corrupti maiores fuga nihil distinctio assumenda! Voluptate asperiores
-        voluptates quibusdam ipsum eaque nam quis error impedit, accusamus
-        pariatur! Iure.
-      </h2>
-      <div class="flex flex-row gap-x-4">
+        {t("hero.greeting")}
+      </h1>
+      <p class="max-w-[60ch] text-lg text-body lg:text-xl">
+        {t("hero.bio")}
+      </p>
+      <div class="mt-2 flex flex-row flex-wrap gap-3">
         <Social
           url="https://www.linkedin.com/in/agustin-villar-4a9bab259/"
           title="LinkedIn"
         >
-          <LinkedInIcon class="size-7 lg:size-4" />
+          <LinkedInIcon class="size-4" />
         </Social>
-        <Social url="https://github.com/JAguVillar" title="Github">
-          <GithubIcon class="size-7 lg:size-4" />
+        <Social url="https://github.com/JAguVillar" title="GitHub">
+          <GithubIcon class="size-4" />
         </Social>
       </div>
     </SectionContainer>
 
     <SectionContainer
-      class="h-screen flex justify-center flex-col"
+      class="relative flex min-h-dvh flex-col justify-center"
       id="experiencia"
     >
-      <div class="flex justify-between items-center">
-        <h2
-          class="text-4xl font-bold dark:text-white opacity-80 dark:opacity-100 mb-4"
-        >
-          Mi experiencia
+      <Stickers />
+      <div class="mb-8 flex items-center justify-between gap-4">
+        <h2 class="text-3xl font-bold text-strong lg:text-4xl">
+          {t("experience.title")}
         </h2>
-        <Social url="google.com" title="Mi CV">
-          <ResumeIcon class="size-7 lg:size-4" />
+        <Social url="/cv.pdf" title={t("hero.cv")}>
+          <ResumeIcon class="size-4" />
         </Social>
       </div>
       <Experience />
     </SectionContainer>
 
-    <SectionContainer
-      id="proyectos"
-      class="h-screen flex justify-center flex-col"
-    >
-      <h2
-        class="text-4xl font-bold dark:text-white opacity-80 dark:opacity-100"
-      >
-        Mis proyectos
+    <SectionContainer class="flex min-h-dvh flex-col justify-center" id="proyectos">
+      <h2 class="mb-8 text-3xl font-bold text-strong lg:text-4xl">
+        {t("projects.title")}
       </h2>
       <Projects />
     </SectionContainer>

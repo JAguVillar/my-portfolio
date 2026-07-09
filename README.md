@@ -1,54 +1,48 @@
-# Astro Starter Kit: Basics
+# Portfolio — Agustín Villar
 
-```sh
-npm create astro@latest -- --template basics
-```
+Sitio personal construido con [Astro](https://astro.build/) y [Tailwind CSS](https://tailwindcss.com/). Desplegado en Vercel.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Stack
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- **Astro 4** — framework de contenido, cero JS por defecto.
+- **Tailwind CSS 3** — con tokens de color semánticos (ver `tailwind.config.mjs` + variables HSL en `src/layouts/Layout.astro`).
+- **Onest Variable** — tipografía.
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Estructura
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── components/          # Header, Footer, tarjetas, íconos, theme toggle
+│   └── experiences/     # Ítem de la línea de tiempo de experiencia
+├── data/
+│   └── experiences.ts   # Datos de experiencia (bilingüe es/en)
+├── i18n/
+│   └── ui.ts            # Diccionario de textos de interfaz (es por defecto, en listo)
+├── images/
+├── layouts/
+│   └── Layout.astro     # <head>, tokens de color, anti-FOUC, meta OG
+└── pages/
+    └── index.astro
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Internacionalización
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Los textos viven en `src/i18n/ui.ts` como diccionario `es` / `en`. Hoy se renderiza `es`
+por defecto (`defaultLang`). Para habilitar dos idiomas en vivo falta solo agregar el
+routing por idioma y un selector; el contenido ya está separado del markup.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Comandos
 
-## 🧞 Commands
+| Comando           | Acción                                   |
+| :---------------- | :--------------------------------------- |
+| `npm install`     | Instala dependencias                     |
+| `npm run dev`     | Servidor local en `localhost:4321`       |
+| `npm run build`   | Compila el sitio a `./dist/`             |
+| `npm run preview` | Previsualiza el build local              |
 
-All commands are run from the root of the project, from a terminal:
+## Pendientes
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [ ] Reemplazar el borrador de la bio del hero (`src/i18n/ui.ts` → `hero.bio`).
+- [ ] Subir el CV a `public/cv.pdf`.
+- [ ] Agregar `public/og.png` (1200×630) y descomentar la meta `og:image` en el Layout.
+- [ ] Cargar proyectos reales en la sección de proyectos.

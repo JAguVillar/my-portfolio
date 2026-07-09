@@ -1,0 +1,128 @@
+---
+import { Image } from "astro:assets";
+import React from "../../images/stickers/React.webp";
+import Vue from "../../images/stickers/viy8xrpfybcohdex2pob.webp";
+import Angular from "../../images/stickers/Angular.webp";
+import Tailwind from "../../images/stickers/Tailwindcss.webp";
+import Php from "../../images/stickers/vy2ef3dm5ksi2mqoldri.webp";
+import Flutter from "../../images/stickers/g1nt2gkren0uzznjml14.webp";
+
+// Curados: representan el stack real y se ven bien sobre fondo claro y oscuro.
+// Anclados a la columna de contenido (rem, fuera del texto) para llenar el
+// gutter cercano; offsets variados → scatter orgánico. Solo se muestran en xl+.
+const stickers = [
+  { src: React, name: "React", pos: "left:-12.5rem;top:3%", r: -8, w: 180, fd: 6.5, d: 0.05 },
+  { src: Vue, name: "Vue.js", pos: "right:-14rem;top:6%", r: 9, w: 200, fd: 7.5, d: 0.15 },
+  { src: Php, name: "PHP", pos: "right:-13.5rem;top:33%", r: -10, w: 195, fd: 7.2, d: 0.2 },
+  { src: Angular, name: "Angular", pos: "left:-11.5rem;top:40%", r: 11, w: 172, fd: 6.8, d: 0.25 },
+  { src: Tailwind, name: "Tailwind", pos: "left:-13rem;top:72%", r: -6, w: 182, fd: 7.8, d: 0.3 },
+  { src: Flutter, name: "Flutter", pos: "right:-13rem;top:62%", r: 7, w: 190, fd: 6.2, d: 0.35 },
+];
+---
+
+<div
+  class="sticker-layer pointer-events-none absolute inset-0 z-0 hidden xl:block"
+  aria-hidden="true"
+>
+  {
+    stickers.map((s) => (
+      <div
+        class="sticker pointer-events-auto absolute"
+        style={`${s.pos};--r:${s.r}deg;--fd:${s.fd}s;width:${s.w}px`}
+      >
+        <Image
+          src={s.src}
+          alt=""
+          width={s.w * 2}
+          densities={[2]}
+          loading="lazy"
+          class="sticker-img block h-auto w-full select-none"
+          style={`animation-delay:${s.d}s`}
+        />
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const section = document.getElementById("experiencia");
+    const layer = document.querySelector<HTMLElement>(".sticker-layer");
+    if (!section || !layer) return;
+
+    const stickers = Array.from(
+      layer.querySelectorAll<HTMLElement>(".sticker"),
+    );
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reduce) {
+      stickers.forEach((s) => (s.style.opacity = "1"));
+      return;
+    }
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      const { top } = section.getBoundingClientRect();
+      // p: 0 cuando la sección está por entrar desde abajo → 1 cuando entró ~65%
+      const p = Math.min(1, Math.max(0, (vh - top) / (vh * 0.65)));
+      stickers.forEach((s, i) => {
+        // pequeño desfase por sticker para que aparezcan escalonados
+        const t = Math.min(1, Math.max(0, (p - i * 0.05) * 1.35));
+        s.style.opacity = String(t);
+      });
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+  });
+</script>
+
+<style>
+  .sticker {
+    opacity: 0;
+    transform: scale(1) rotate(var(--r));
+    transform-origin: center;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.28));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    will-change: opacity, transform;
+  }
+
+  .sticker:hover {
+    transform: scale(1.16) rotate(0deg) !important;
+    z-index: 20;
+  }
+
+  .sticker-img {
+    animation: sticker-float var(--fd) ease-in-out infinite;
+  }
+
+  @keyframes sticker-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-9px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sticker:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+    }
+    .sticker-img {
+      animation: none;
+    }
+  }
+</style>

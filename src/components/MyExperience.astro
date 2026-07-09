@@ -1,42 +1,21 @@
 ---
-import Experience from "../components/experiences/Experience.astro";
-import Exp from "../components/experiences/Experience.astro";
+import ExperienceItem from "./experiences/Experience.astro";
+import { experiences } from "../data/experiences";
+import { defaultLang, useTranslations } from "../i18n/ui";
 
-const EXPERIENCIAS = [
-  {
-    empresa: "Macamedia",
-    fecha: {
-      inicio: "2021",
-      fin: "2024",
-    },
-    color: "#4ce07d",
-    puesto: "Front-End Engineer",
-    descripcion:
-      "Responsable en diferentes equipos y proyectos del diseño y desarrollo, de componenetes y utilidades para aplicaciones web y moviles. Implementación de flujo de trabajo Git Flow, para agilizar el desarrollo y entregas programadas.",
-  },
-  {
-    empresa: "SantiagoWeb",
-    fecha: {
-      inicio: "2018",
-      fin: "2021",
-    },
-    color: "#f06336",
-    puesto: "Fullstack Developer",
-    descripcion:
-      "Líder técnico y responsable del diseño y desarrollo de aplicaciones web en diferentes proyectos.",
-  },
-];
+const lang = defaultLang;
+const t = useTranslations(lang);
 ---
 
-<ol class="relative border-s border-gray-200 dark:border-gray-700 ml-3">
+<ol class="relative ml-3 border-s border-line">
   {
-    EXPERIENCIAS.map((item) => (
-      <Experience
+    experiences.map((item) => (
+      <ExperienceItem
         empresa={item.empresa}
         color={item.color}
-        fecha={item.fecha}
-        puesto={item.puesto}
-        descripcion={item.descripcion}
+        fecha={`${item.inicio} – ${item.fin ?? t("experience.present")}`}
+        puesto={item.puesto[lang]}
+        descripcion={item.descripcion[lang]}
       />
     ))
   }

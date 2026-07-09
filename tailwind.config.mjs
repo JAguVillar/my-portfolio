@@ -4,12 +4,17 @@ export default {
   darkMode: "selector",
   theme: {
     extend: {
-      // Custom utility classes
-      textColor: {
-        "content-theme": "var(--color-content-theme)", // placeholder if you need more customization
-      },
-      opacity: {
-        "content-theme": "var(--opacity-content-theme)",
+      // Tokens semánticos alimentados por variables CSS (ver Layout.astro).
+      // Evitan repetir `dark:` en cada texto y garantizan un único acento.
+      colors: {
+        bg: "hsl(var(--bg) / <alpha-value>)",
+        surface: "hsl(var(--surface) / <alpha-value>)",
+        strong: "hsl(var(--text-strong) / <alpha-value>)",
+        body: "hsl(var(--text) / <alpha-value>)",
+        muted: "hsl(var(--text-muted) / <alpha-value>)",
+        accent: "hsl(var(--accent) / <alpha-value>)",
+        "accent-strong": "hsl(var(--accent-strong) / <alpha-value>)",
+        line: "hsl(var(--border) / <alpha-value>)",
       },
       keyframes: {
         fadeIn: {
@@ -22,13 +27,5 @@ export default {
       },
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities({
-        ".content-theme": {
-          "@apply dark:text-gray-800 opacity-80 dark:opacity-100": {},
-        },
-      });
-    },
-  ],
+  plugins: [],
 };

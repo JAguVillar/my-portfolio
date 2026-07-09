@@ -1,15 +1,18 @@
 ---
-import ThemeToggle from "./ThemeToggle.astro";
-import LinkedInIcon from "../components/icons/LinkedIn.astro";
 import { Image } from "astro:assets";
 import Gato from "../images/cat.webp";
+import { defaultLang, useTranslations } from "../i18n/ui";
+
+const t = useTranslations(defaultLang);
 ---
 
-<div class="flex justify-center items-center flex-col">
-  <Image src={Gato} alt="Soon" class="rounded-full w-36 py-14" />
-  <h3
-    class="text-2xl font-bold dark:text-slate-300 opacity-80 dark:opacity-100 text-center"
-  >
-    ¡Pronto encontrarás mis proyectos aquí!
-  </h3>
+<div class="flex flex-col items-center justify-center gap-6 py-12 text-center">
+  <Image
+    src={Gato}
+    alt="Ilustración de un gato indicando que la sección está en construcción"
+    class="w-32 rounded-full"
+  />
+  <p class="max-w-[40ch] text-xl font-semibold text-body">
+    {t("projects.empty")}
+  </p>
 </div>
